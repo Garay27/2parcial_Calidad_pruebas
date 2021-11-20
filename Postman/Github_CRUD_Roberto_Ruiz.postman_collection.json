@@ -1,0 +1,176 @@
+{
+	"info": {
+		"_postman_id": "930c872b-37b0-45d4-a565-4848ffe692ba",
+		"name": "Github_CRUD_Roberto_Ruiz",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "RetrieveUserRepositories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/users/:user/Garay27/repos",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"users",
+						":user",
+						"Garay27",
+						"repos"
+					],
+					"variable": [
+						{
+							"key": "user",
+							"value": "{{user}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateRepository",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\"name\": \"PostmanNameChangeTest\",\r\n\"description\": \"This is your test repository\",\r\n\"homepage\": \"https://github.com\",\r\n\"private\": false,\r\n\"has_issues\": true,\r\n\"has_projects\": true,\r\n\"has_wiki\": true"
+				},
+				"url": {
+					"raw": "{{baseURL}}/user/repos",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"user",
+						"repos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateRepositoryName",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "headerPrefix",
+							"value": "token",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"name\": \"PostmanNameChangeTest\",\r\n\"description\": \"This is your test repository\",\r\n\"homepage\": \"https://github.com\",\r\n\"private\": false,\r\n\"has_issues\": true,\r\n\"has_projects\": true,\r\n\"has_wiki\": true\r\n}"
+				},
+				"url": {
+					"raw": "https://api.github.com/repos/:user/:repo",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"repos",
+						":user",
+						":repo"
+					],
+					"variable": [
+						{
+							"key": "user",
+							"value": "{{user}}"
+						},
+						{
+							"key": "repo",
+							"value": "PostmanTest"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteRepository",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "headerPrefix",
+							"value": "token",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://api.github.com/repos/Garay27/:",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"repos",
+						"Garay27",
+						":"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "https://api.github.com"
+		}
+	]
+}
